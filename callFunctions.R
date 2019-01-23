@@ -2,8 +2,7 @@
 print("Working directory, data and settings")
 #-----------------------------------------------------------------------------------------------------
 #working directory
-W.DIR <- "d:/Dropbox/_projects/_2018_CaWA/_2018/_CawaCode/"
-#W.DIR <- "c:/Users/terrasys/Dropbox/_projects/_2018_CawaCode/"
+W.DIR <- "d:/Dropbox/_git/CAWaClass/_data/"
 #directory containing functions
 FUNC.DIR <- "_functions/"
 #directory containing input data
