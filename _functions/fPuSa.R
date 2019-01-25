@@ -118,6 +118,4 @@ setwd(file.path(W.DIR,OUT.DIR))
 write.csv2(d.fs,
             file=paste(substr(PS,1,nchar(PS)-4),"_DM",c(".csv"),sep=""),
             row.names = FALSE)
-d <- d.fs
-return(d)
 }

@@ -18,29 +18,27 @@ YEAR = 2015
 #-----------------------------------------------------------------------------------------------------
 print("Import functions")
 #-----------------------------------------------------------------------------------------------------
-source(file.path(W.DIR,FUNC.DIR,"fPackages.R"))
+source(file.path(W.DIR,FUNC.DIR,"fPackage.R"))
 source(file.path(W.DIR,FUNC.DIR,"fPuSa.R"))
 source(file.path(W.DIR,FUNC.DIR,"fZonalStatistics.R"))
 source(file.path(W.DIR,FUNC.DIR,"fSample.R"))
-source(file.path(W.DIR,FUNC.DIR,"fPuSaCompare.R"))
+source(file.path(W.DIR,FUNC.DIR,"fPuSaCom.R"))
 source(file.path(W.DIR,FUNC.DIR,"fModisClass.R"))
 source(file.path(W.DIR,FUNC.DIR,"fClassAcc.R"))
 #-----------------------------------------------------------------------------------------------------
 print("Carry out functions")
 #-----------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-print("2 | Dissimiliarity test of samples")
+print("Dissimiliarity test of samples")
 #-------------------------------------------------------------------------------
 ###Function
 d <-       fPuSa(W.DIR,
            IN.DIR ="_data/",
            OUT.DIR = "_result/",
            CLASS.NAME = "CLASS",
-           PS,
-           TH = 0.75,
-           PLOT=TRUE)
+           PS)
 #-------------------------------------------------------------------------------
-print("2 | Zonal statistics of reference units for MODIS imagery")
+print("Zonal statistics of reference units for MODIS imagery")
 #-----------------------------------------------------------------------------------------------------
 ###Function
 RU.MODIS <- fZonalStatistics(W.DIR,
@@ -56,7 +54,7 @@ print(RU.MODIS)
 
 
 #-------------------------------------------------------------------------------
-print("3 | Deriving samples for classification applying a comparison of pure sample NDVI profiles and pixel-specific NDVI profiles")
+print("Deriving samples for classification applying a comparison of pure sample NDVI profiles and pixel-specific NDVI profiles")
 #-------------------------------------------------------------------------------
 ###Additional parameters
 #ZS.SHP - shape file with DOY-specific NDVI values; result from applying fSample function 
@@ -96,7 +94,7 @@ PS2PF <- "MD"
 TH <- 0.75
 
 ###Function
-fPuSaCompare(W.DIR,
+fPuSaCom(W.DIR,
              IN.DIR,
              OUT.DIR,
              CLASS.NAME,
