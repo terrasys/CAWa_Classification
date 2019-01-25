@@ -1,8 +1,9 @@
+#Wrapper file excecuting all functions for the MDOIS classification
 #-----------------------------------------------------------------------------------------------------
 print("Working directory, data and settings")
 #-----------------------------------------------------------------------------------------------------
 #working directory
-W.DIR <- "d:/Dropbox/_git/CAWaClass/_data/"
+W.DIR <- "d:/Dropbox/_git/CAWaClass/"
 #directory containing functions
 FUNC.DIR <- "_functions/"
 #directory containing input data
@@ -12,7 +13,7 @@ OUT.DIR <- "_result/"
 #name of reference unit shapefile
 RU.SHP = "RU_fergana"
 #name of pure sample file
-PS  = "PureSample10-50.csv"
+PS  = "PureSample.csv"
 YEAR = 2015
 #-----------------------------------------------------------------------------------------------------
 print("Import functions")
@@ -40,10 +41,6 @@ d <- fPuSa(W.DIR,
            PS,
            TH = 0.75,
            PLOT=FALSE)
-print(d)
-###Result
-##dissimiliarity matrix -> "PureSample_DM.csv"
-
 #-------------------------------------------------------------------------------
 print("2 | Zonal statistics of reference units for MODIS imagery")
 #-----------------------------------------------------------------------------------------------------
