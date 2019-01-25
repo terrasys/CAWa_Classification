@@ -25,22 +25,20 @@ source(file.path(W.DIR,FUNC.DIR,"fSample.R"))
 source(file.path(W.DIR,FUNC.DIR,"fPuSaCompare.R"))
 source(file.path(W.DIR,FUNC.DIR,"fModisClass.R"))
 source(file.path(W.DIR,FUNC.DIR,"fClassAcc.R"))
-#execute functions
+#-----------------------------------------------------------------------------------------------------
+print("Carry out functions")
+#-----------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------
-print("1 | Dissimiliarity test of samples")
+print("2 | Dissimiliarity test of samples")
 #-------------------------------------------------------------------------------
-###Additional parameters
-#CLASS.NAME - column name with class names
-#TH - threshold which proportion of class-specific NDVI values should be considered (1=100%)
-
 ###Function
-d <- fPuSa(W.DIR,
+d <-       fPuSa(W.DIR,
            IN.DIR ="_data/",
            OUT.DIR = "_result/",
            CLASS.NAME = "CLASS",
            PS,
            TH = 0.75,
-           PLOT=FALSE)
+           PLOT=TRUE)
 #-------------------------------------------------------------------------------
 print("2 | Zonal statistics of reference units for MODIS imagery")
 #-----------------------------------------------------------------------------------------------------

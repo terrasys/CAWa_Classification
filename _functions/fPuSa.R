@@ -1,6 +1,4 @@
 print("Dissimiliariy test of samples")
-
-featureScale <- function(x, ...){(x - min(x, ...)) / (max(x, ...) - min(x, ...))}
 #-----------------------------------------------------------------------------------------------------
 #Dissimiliariy test of pure samples
 #-----------------------------------------------------------------------------------------------------
@@ -8,12 +6,11 @@ fPuSa <- function(W.DIR,
                   IN.DIR,
                   OUT.DIR,
                   CLASS.NAME,
-                  PS,
-                  TH,
-                  PLOT=FALSE){
+                  PS){
 #select directory with sample profiles
+print("Dissimiliariy test of samples")
 #-----------------------------------------------------------------------------------------------------
-print(paste("Import pure samples and calculate a dissimiliariy test:",PS))
+print(paste("A | Import pure samples:",PS))
 #-----------------------------------------------------------------------------------------------------
 ps <- read.table(file.path(W.DIR,IN.DIR,PS),
                  dec=",",
@@ -21,59 +18,61 @@ ps <- read.table(file.path(W.DIR,IN.DIR,PS),
                  header = TRUE,
                  check.names=FALSE)
 ps <- ps[order(ps[paste(CLASS.NAME)]),]
-
-
-if(PLOT==TRUE){
-  #-------------------------------------------------------------------------------
-  print("Plot NDVI profiles")
-  #-------------------------------------------------------------------------------
-  #split data set according to class
-  l.class <- split(ps,ps[[paste(CLASS.NAME)]])
-  setwd(file.path(W.DIR,OUT.DIR))
-  pdf(paste(substr(PS,1,nchar(PS)-4),"_NDVI-profiles.pdf",sep=""), 
-      height=5,width=9)
+#-------------------------------------------------------------------------------
+print("B | Plot NDVI profiles")
+#-------------------------------------------------------------------------------
+#split data set according to class
+l.class <- split(ps,ps[[paste(CLASS.NAME)]])
+#color schema
+my.palette <- brewer.pal(n = length(l.class), name = "Spectral")
+setwd(file.path(W.DIR,OUT.DIR))
+pdf(paste(substr(PS,1,nchar(PS)-4),"_NDVI-profiles.pdf",sep=""), 
+    height=5,width=9)
+  DOY <- data.frame(DOY=-25:410,NDVI=-1)
+  plot(DOY,
+       xaxt="n",
+       ylim=c(0,1),
+       xlim=c(0,380),
+       ylab=as.expression(bquote(italic(NDVI))),
+       xlab=as.expression(bquote(italic(DOY))),
+       cex.lab=1.4)
+  #axis
+  x1 <- seq(1,365,10)
+  x2 <- seq(1,360,2)
+  axis(1, at=x2, col.tick="grey", las=1,labels=FALSE,cex=1.2)
+  axis(1, at=x1, col.axis="black", las=1,cex=1.2)
   for(c in 1:length(l.class)){
   #select parcel-specific row  
-  ndvi <- l.class[[c]]  
-  #plot NDVI profiles when the number of NDVI values exeeds threshold TH
-    DOY <- data.frame(DOY=-25:410,NDVI=-1)
-    plot(DOY,
-         xaxt="n",
-         ylim=c(0,1),
-         xlim=c(0,380),
-         ylab=as.expression(bquote(italic(NDVI))),
-         xlab=as.expression(bquote(italic(DOY))),
-         cex.lab=1.4,
-         main=paste("Crop type code = ",ndvi$CLASS))
-    #axis
-    x1 <- seq(1,365,10)
-    x2 <- seq(1,360,2)
-    axis(1, at=x2, col.tick="grey", las=1,labels=FALSE,cex=1.2)
-    axis(1, at=x1, col.axis="black", las=1,cex=1.2)
-    #extract all columns containing LS in column name
-    ndvi <- ndvi[grepl(paste("PS",sep=""), names(ndvi))]
-    #replace all values smaller 0 with 0
-    ndvi[ndvi<0] <- 0
-    #interpolate  NA values if they exist
-    if(sum(is.na(ndvi[1,]))>0){
-      ndvi[1,] <- na.spline(c(ndvi))
-    }
-    #empty data frames 
-   v.doy <- data.frame(DOY=NULL)
-    v.ndvi <- data.frame(NDVI=NULL)
-    for(j in 1:length(ndvi)){
-      points(noquote(substr(names(ndvi[j]),3,6)),ndvi[1,j])
-      v.doy <- rbind(v.doy,as.numeric(noquote(substr(names(ndvi[j]),3,6))))
-      v.ndvi <- rbind(v.ndvi,ndvi[1,j])
-    }
-    ks <- spline(v.doy[[1]],v.ndvi[[1]], method='n', n=length(ndvi)*10)
-    lines(ks, col="red",lwd=1.5,lty=5)
+  ndvi <- l.class[[c]] 
+  #extract all columns containing LS in column name
+  ndvi <- ndvi[grepl(paste("PS",sep=""), names(ndvi))]
+  #replace all values smaller 0 with 0
+  ndvi[ndvi<0] <- 0
+  #interpolate  NA values if they exist
+  if(sum(is.na(ndvi[1,]))>0){
+    ndvi[1,] <- na.spline(c(ndvi))
   }
-  dev.off()
-} 
-  
+  #empty data frames 
+  v.doy <- data.frame(DOY=NULL)
+  v.ndvi <- data.frame(NDVI=NULL)
+  for(j in 1:length(ndvi)){
+    points(noquote(substr(names(ndvi[j]),3,6)),ndvi[1,j])
+    v.doy <- rbind(v.doy,as.numeric(noquote(substr(names(ndvi[j]),3,6))))
+    v.ndvi <- rbind(v.ndvi,ndvi[1,j])
+  }
+  ks <- spline(v.doy[[1]],v.ndvi[[1]], method='n', n=length(ndvi)*10)
+  lines(ks, col=my.palette[c],lwd=2,lty=5)
+  }
+  legend("top",
+         legend=c(paste(as.character(ps[[paste(CLASS.NAME)]]))),
+         lty=5,
+         lwd=2,
+         cex=1.2,
+         col=my.palette,
+         bty="n",ncol=length(l.class))
+dev.off()
 #------------------------------------------------------------------------------------------------------
-print("Dissimilarity test")
+print("C | Dissimilarity test")
 #------------------------------------------------------------------------------------------------------
 #Melt data so that each row is a unique id-variable combination
 ps[[paste(CLASS.NAME)]] <- as.factor(ps[[paste(CLASS.NAME)]])
