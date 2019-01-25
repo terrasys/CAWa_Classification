@@ -2,7 +2,7 @@
 print("Working directory, data and settings")
 #-----------------------------------------------------------------------------------------------------
 #working directory
-W.DIR <- "d:/Dropbox/_git/CAWaClass/_data/"
+W.DIR <- "d:/Dropbox/_git/CAWaClass/"
 #directory containing functions
 FUNC.DIR <- "_functions/"
 #directory containing input data
@@ -12,7 +12,7 @@ OUT.DIR <- "_result/"
 #name of reference unit shapefile
 RU.SHP = "RU_fergana"
 #name of pure sample file
-PS  = "PureSample10-50.csv"
+PS  = "PureSample.csv"
 YEAR = 2015
 #-----------------------------------------------------------------------------------------------------
 print("Import functions")
