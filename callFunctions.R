@@ -20,7 +20,7 @@ print("Import functions")
 #-----------------------------------------------------------------------------------------------------
 source(file.path(W.DIR,FUNC.DIR,"fPackage.R"))
 source(file.path(W.DIR,FUNC.DIR,"fPuSa.R"))
-source(file.path(W.DIR,FUNC.DIR,"fZonalStatistics.R"))
+source(file.path(W.DIR,FUNC.DIR,"fZonaS.R"))
 source(file.path(W.DIR,FUNC.DIR,"fSample.R"))
 source(file.path(W.DIR,FUNC.DIR,"fPuSaCom.R"))
 source(file.path(W.DIR,FUNC.DIR,"fModisClass.R"))
@@ -41,7 +41,7 @@ d <-       fPuSa(W.DIR,
 print("Zonal statistics of reference units for MODIS imagery")
 #-----------------------------------------------------------------------------------------------------
 ###Function
-RU.MODIS <- fZonalStatistics(W.DIR,
+RU.MODIS <- fZonaS(W.DIR,
                              IN.DIR  = "_data/",
                              OUT.DIR = "_result/",
                              RU.SHP = "RU_fergana",

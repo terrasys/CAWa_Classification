@@ -1,6 +1,6 @@
 print("Function for zonal statistics of statistical imagery")
 #-------------------------------------------------------------------------------
-fZonalStatistics <- function(
+fZonaS <- function(
   W.DIR,
   IN.DIR,
   RU.SHP,
