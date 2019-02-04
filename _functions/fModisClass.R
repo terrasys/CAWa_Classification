@@ -108,20 +108,17 @@ write.table(acc.m$AccMetrics,
 print("Prediction to the total data set")
 #------------------------------------------------------------------------------------------------------
 #Import reference units)
-m <- shapefile(file.path(W.DIR,IN.DIR,ZS.SHP))
+m <- st_read(paste(W.DIR,IN.DIR,ZS.SHP,".shp",sep=""))
 #Removing NA in shape file 
-m@data[is.na(m@data)] <- -9999
-m <- m[m@data[[c(3)]]>=0,]
-head(m)
+m[is.na(m)] <- -9999
+m <- m[m[[c(3)]]>=0,]
 #prediction to the total data set
-m@data$CLASS <- predict(m.Fit,m)
+m$CLASS <- predict(m.Fit,m)
 #deriving probabilities
 m$CLASS_PB <- apply(predict(m.Fit,m,type="prob"), 1, max)
 #export
 setwd(file.path(W.DIR,OUT.DIR))
-writeOGR(m,".",paste(ZS.SHP,"_",M.TRAIN,"_CLASS",sep=""),
-         overwrite_layer=TRUE,
-         driver="ESRI Shapefile")
+st_write(m,paste(ZS.SHP,"_",M.TRAIN,"_CLASS.shp",sep=""),delete_layer = TRUE)
 #------------------------------------------------------------------------------------------------------
 print("Barplot of classification results")
 #------------------------------------------------------------------------------------------------------

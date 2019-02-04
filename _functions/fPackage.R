@@ -40,7 +40,6 @@ pk <- c("classInt",
         "TSclust",
         "zoo")
 for(i in pk){loadandinstall(i)}
-
 #Feature scale function
 #-----------------------------------------------------------------------------------------------------
 featureScale <- function(x, ...){(x - min(x, ...)) / (max(x, ...) - min(x, ...))}

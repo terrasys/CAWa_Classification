@@ -4,7 +4,7 @@ fSample <- function(W.DIR,
                     IN.DIR,
                     PS,
                     ZS.SHP,
-                    RU.SHP,
+                    MODIS.SHP,
                     OUT.DIR,
                     Q){
   print("Sampling: Import pure sample data set")
@@ -143,7 +143,7 @@ fSample <- function(W.DIR,
               row.names = FALSE)
   #Export sample shape file"
   #Import shape file of MODIS raster polygones
-  rus <- st_read(paste(W.DIR,IN.DIR,RU.SHP,".shp",sep=""))
+  rus <- st_read(paste(W.DIR,IN.DIR,MODIS.SHP,".shp",sep=""))
   head(rus)
   #Merge with sample data frame
   rus <- merge(rus,df.S,
@@ -156,6 +156,6 @@ fSample <- function(W.DIR,
   #Export 
   setwd(file.path(W.DIR,OUT.DIR))
   st_write(rus.s,paste(ZS.SHP,"_SAMPLE-NDVI_Q",Q,".shp",sep=""),delete_layer = TRUE)
-  return(list(SAMPLE.AGG = paste(RU.SHP,YEAR,"_SAMPLE-NDVI_agg_Q",Q,".csv",sep=""),
-              SAMPLE.SHP = paste(RU.SHP,YEAR,"_SAMPLE-NDVI_Q",Q,sep="")))
+  return(list(SAMPLE.AGG = paste(MODIS.SHP,YEAR,"_SAMPLE-NDVI_agg_Q",Q,".csv",sep=""),
+              SAMPLE.SHP = paste(MODIS.SHP,YEAR,"_SAMPLE-NDVI_Q",Q,sep="")))
 }
