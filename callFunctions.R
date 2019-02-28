@@ -49,6 +49,7 @@ ZS.SHP <- fZonaSt(W.DIR = W.DIR,
                    OUT.DIR = OUT.DIR,
                    MODIS.SHP = MODIS.SHP,
                    IM.GRD = IM.GRD,
+                   V.IM = 100,
                    YEAR = YEAR)
 #-------------------------------------------------------------------------------
 print("Deriving samples for classification applying a comparison of pure sample NDVI profiles and pixel-specific NDVI profiles")
