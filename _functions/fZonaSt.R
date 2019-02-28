@@ -6,7 +6,8 @@ fZonaSt <- function(
   MODIS.SHP,
   IM.GRD,
   OUT.DIR,
-  YEAR){
+  YEAR,
+  V.IM){
 #-----------------------------------------------------------------------------------------------------
 print("Import reference units")
 #-----------------------------------------------------------------------------------------------------
@@ -101,7 +102,7 @@ for (i in 1:length(l.r)){
 print("Import and rename attributed shape file attributes")
 ru <- st_read(paste(W.DIR,OUT.DIR,MODIS.SHP,".shp",sep=""))
 colnames(ru) <- c(names.ru,paste("IM"),paste("MD",DOY$DOY,sep=""),paste("geometry"))
-ru <- ru[which(ru$IM>0 & ru$IM<=100),]
+ru <- ru[which(ru$IM>0 & ru$IM<=V.IM),]
 st_write(ru,paste(W.DIR,OUT.DIR,MODIS.SHP,YEAR,".shp",sep=""),delete_layer = TRUE)
 return(paste(MODIS.SHP,YEAR,sep=""))
 }
