@@ -3,13 +3,13 @@
 print("Working directory, data and settings")
 #-----------------------------------------------------------------------------------------------------
 #working directory
-W.DIR <- "d:/Dropbox/_git/CAWaClass/"
+W.DIR = "d:/Dropbox/_git/CAWaClass/"
 #directory containing functions
-FUNC.DIR <- "_functions/"
+FUNC.DIR = "_functions/"
 #directory containing input data
-IN.DIR <- "_data/"
+IN.DIR = "_data/"
 #directory containing results
-OUT.DIR <- "_result/"
+OUT.DIR = "_result/"
 #name of reference unit shapefile
 MODIS.SHP = "MODIS_fergana"
 #Irrigation mask
@@ -34,11 +34,11 @@ print("Carry out functions")
 print("Dissimiliarity test of samples")
 #-------------------------------------------------------------------------------
 ###Function
-fPuSa(W.DIR=W.DIR,
-      IN.DIR=IN.DIR,
-      OUT.DIR=OUT.DIR,
+fPuSa(W.DIR = W.DIR,
+      IN.DIR = IN.DIR,
+      OUT.DIR = OUT.DIR,
       CLASS.NAME = "CLASS",
-      PS=PS)
+      PS = PS)
 
 #-------------------------------------------------------------------------------
 print("Zonal statistics of reference units for MODIS imagery")
@@ -56,8 +56,8 @@ print("Deriving samples for classification applying a comparison of pure sample 
 ###Additional parameters
 #ZS.SHP - shape file with NDVI values for specific DOYs and YEAR; result from applying fSample function 
 ###Function
-SAMPLE <- fSample(W.DIR=W.DIR,
-                  PS=PS,
+SAMPLE <- fSample(W.DIR = W.DIR,
+                  PS = PS,
                   IN.DIR = IN.DIR,
                   ZS.SHP = ZS.SHP,
                   MODIS.SHP = MODIS.SHP,
