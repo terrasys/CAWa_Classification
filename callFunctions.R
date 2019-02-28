@@ -44,25 +44,17 @@ fPuSa(W.DIR=W.DIR,
 print("Zonal statistics of reference units for MODIS imagery")
 #-----------------------------------------------------------------------------------------------------
 ###Function
-ZS.SHP <- fZonaSt(W.DIR=W.DIR,
-                   IN.DIR=IN.DIR,
-                   OUT.DIR=OUT.DIR,
-                   MODIS.SHP=MODIS.SHP,
-                   IM.GRD,
+ZS.SHP <- fZonaSt(W.DIR = W.DIR,
+                   IN.DIR = IN.DIR,
+                   OUT.DIR = OUT.DIR,
+                   MODIS.SHP = MODIS.SHP,
+                   IM.GRD = IM.GRD,
                    YEAR = YEAR)
-
-print(ZS.SHP)
-###Result
-#RU_fergana[YEAR].shp -> shape file with DOY-specific NDVI values 
-#PureSample_NDVI-profiles.pdf -> class-specific NDVI profile plots
-
-
 #-------------------------------------------------------------------------------
 print("Deriving samples for classification applying a comparison of pure sample NDVI profiles and pixel-specific NDVI profiles")
 #-------------------------------------------------------------------------------
 ###Additional parameters
-#ZS.SHP - shape file with DOY-specific NDVI values; result from applying fSample function 
-
+#ZS.SHP - shape file with NDVI values for specific DOYs and YEAR; result from applying fSample function 
 ###Function
 SAMPLE <- fSample(W.DIR=W.DIR,
                   PS=PS,
