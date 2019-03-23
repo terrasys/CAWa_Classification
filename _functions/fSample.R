@@ -78,14 +78,28 @@ fSample <- function(W.DIR,
               dec=",",
               sep=";",
               row.names = FALSE)
-  #-----------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------------
   print("Select quantile-specific samples")
   #-----------------------------------------------------------------------------------------------------
+  
+  pdf(paste(W.DIR,OUT.DIR,ZS.SHP,"_SAMPLE-NDVI-densityplot_Q",Q,c(".pdf"),sep=""),width=4.5,height=4.5)
   for(i in as.numeric(ps$CLASS)){
     D[[paste("S",i,sep="")]] <- ifelse(D[[paste(i)]]<=quantile(D[[paste(i)]],probs = seq(0.01,1,0.01))[[Q]],
                                        1,
                                        0)
+    plot(density(D[[paste(i)]]),
+         main=paste("Class",names(D[paste(i)])))
+    abline(v=quantile(D[[paste(i)]],probs = seq(0.01,1,0.01))[[Q]],
+           col="red",
+           lty=5,
+           lwd=2)
+    legend("topright",
+           c("Quantile"),
+           lty=c(5),
+           lwd=c(2),
+           col=c("red")) #
   }
+  dev.off()
   #-----------------------------------------------------------------------------------------------------
   #Selection of all data sets which fulfil the quantile condition
   #-----------------------------------------------------------------------------------------------------
